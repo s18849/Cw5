@@ -108,11 +108,45 @@ namespace Cw5.Controllers
                     tran.Rollback();
                     return BadRequest();
                 }
-                
 
             }
 
 
+        }
+
+        [HttpPost("promotions")]
+        public IActionResult PromoteStudent(PromoteStudentRequest request)
+        {
+            PromoteStudentResponse response;
+            using (var con = new SqlConnection(ConString))
+            using (var com = new SqlCommand())
+            {
+
+                com.Connection = con;
+                con.Open();
+                var tran = con.BeginTransaction();
+                com.Transaction = tran;
+                try
+                {
+                    com.CommandText = "exec PromoteStudents @studies, @semester ";
+                    com.Parameters.AddWithValue("studies", request.Studies);
+                    com.Parameters.AddWithValue("semester", request.Semester);
+                    var dr = com.ExecuteReader();
+
+                    response = new PromoteStudentResponse()
+                    {
+                        Name = request.Studies,
+                        Semester = request.Semester + 1
+
+                    };
+                    return Ok(response);
+                }catch(SqlException exc)
+                {
+                    return BadRequest("nie dziala");
+                }
+                   
+
+            }
         }
     }
 }
