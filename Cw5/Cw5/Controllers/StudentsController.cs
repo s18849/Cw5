@@ -19,7 +19,7 @@ namespace Cw5.Controllers
             list.Add(new Student { IndexNumber = "s11115", FirstName = "Paweł", LastName = "Kowalski" });
             list.Add(new Student { IndexNumber = "s23235", FirstName = "Adam", LastName = "Malinowski" });
             
-            return Ok();
+            return Ok(list);
         }
         [HttpGet("{id}")]
         public IActionResult GetStudent(string index)
