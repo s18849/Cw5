@@ -15,7 +15,7 @@ namespace Cw5.Controllers
     [ApiController]
     public class EnrollmentsController : ControllerBase
     {
-
+      
         private const string ConString = "Data Source=db-mssql;Initial Catalog=s18849;Integrated Security=True;MultipleActiveResultSets=True;";
         [HttpPost]
         public IActionResult EnrollStudent(EnrollStudentRequest request)
